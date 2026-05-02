@@ -1,4 +1,3 @@
-alert("JS loaded");
 const API = "https://team-task-manager-production-f155.up.railway.app";
 
 function login() {
@@ -17,15 +16,19 @@ headers: {
 },
 body: JSON.stringify({ email, password })
 })
-.then(res => res.text())
+.then(res => {
+if (!res.ok) throw new Error("Login failed");
+return res.text();
+})
 .then(data => {
 alert(data);
 if (data.toLowerCase().includes("success")) {
 window.location.href = "dashboard.html";
 }
 })
-.catch(() => {
-alert("Server error during login");
+.catch(err => {
+console.error(err);
+alert("Login failed or server error");
 });
 }
 
@@ -121,7 +124,8 @@ taskList.innerHTML = "";
     `;
     taskList.appendChild(div);
   });
-});
+})
+.catch(err => console.error(err));
 ```
 
 }
@@ -133,7 +137,8 @@ fetch(`${API}/dashboard`)
 document.getElementById("totalCount").innerText = data.total || 0;
 document.getElementById("todoCount").innerText = data.todo || 0;
 document.getElementById("doneCount").innerText = data.done || 0;
-});
+})
+.catch(err => console.error(err));
 }
 
 function markDone(id) {
@@ -152,7 +157,8 @@ status: "Done"
 alert(data);
 loadTasks();
 loadStats();
-});
+})
+.catch(err => console.error(err));
 }
 
 function deleteTask(id) {
@@ -168,7 +174,8 @@ body: JSON.stringify({ taskId: id })
 alert(data);
 loadTasks();
 loadStats();
-});
+})
+.catch(err => console.error(err));
 }
 
 window.onload = function () {
