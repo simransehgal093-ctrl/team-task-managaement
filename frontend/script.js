@@ -1,4 +1,4 @@
-const API = "https://team-task-manager-production-f155.up.railway.app";
+const API = "https://team-task-managaement-production.up.railway.app";
 
 function login() {
 const email = document.getElementById("email").value.trim();
