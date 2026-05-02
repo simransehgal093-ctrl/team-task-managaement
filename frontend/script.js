@@ -1,3 +1,4 @@
+alert("JS loaded");
 const API = "https://team-task-manager-production-f155.up.railway.app";
 
 function login() {
